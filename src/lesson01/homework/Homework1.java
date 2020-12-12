@@ -48,7 +48,7 @@ public class Homework1 {
     }
 
     public static void doFifthTask(int year){
-        if (year % 4 != 0){
+        /*if (year % 4 != 0){
             System.out.println("Год " + year + " не является високосным");
         } else if (year % 400 == 0){
             System.out.println("Год " + year + " является високосным");
@@ -56,6 +56,12 @@ public class Homework1 {
             System.out.println("Год " + year + " не является високосным");
         } else{
             System.out.println("Год " + year + " является високосным");
+        }*/
+
+        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+            System.out.println("Год " + year + " является високосным");
+        } else {
+            System.out.println("Год " + year + " не является високосным");
         }
     }
 }
