@@ -1,10 +1,7 @@
 package lesson2.homework;
 
-//7 *** Написать метод, которому на вход подаётся одномерный массив и число n (может быть положительным, или отрицательным),
-//  при этом метод должен циклически сместить все элементы массива на n позиций.
-//  [1,2,3,4,5], -2 => [3,4,5,1,2]
-//  [1,2,3,4,5], 2 => [4,5,1,2,3]
-//8 **** Не пользоваться вспомогательным массивом при решении задачи 7.
+import java.util.Scanner;
+
 public class Homework2 {
 
     public static void main(String[] args) {
@@ -50,11 +47,15 @@ public class Homework2 {
         printArray(array6);
         System.out.println(checkBalance(array6));
 
-        //7 *** Написать метод, которому на вход подаётся одномерный массив и число n (может быть положительным, или отрицательным),
+        //7*** Написать метод, которому на вход подаётся одномерный массив и число n (может быть положительным, или отрицательным),
         //  при этом метод должен циклически сместить все элементы массива на n позиций.
+        int[] array7 = getRandomIntArray(10);
+        int offsetSize = -10;
+        printArray(array7);
+        printArray(offsetArray(array7, offsetSize));
 
-
-
+        //8 **** Не пользоваться вспомогательным массивом при решении задачи 7.
+        printArray(offsetArray2(array7, offsetSize));
     }
 
     //метод, заменяющий в  принятом массиве 0 на 1, 1 на 0
@@ -136,6 +137,47 @@ public class Homework2 {
         return isBalance;
     }
 
+    //метод смещает все элементы массива на n позиций со вспомогательным массивом
+    public static int[] offsetArray(int[] array, int n) {
+        if (array.length % n == 0) {
+            return array;
+        }
+        int[] resultArray = new int[array.length];
+        for (int i = 0; i < array.length; i++) {
+            int index = (i + n) % array.length;
+            if (index < 0) {
+                index += array.length;
+            }
+            resultArray[index] = array[i];
+        }
+        return resultArray;
+    }
+
+    //метод смещает все элементы массива на n позиций без вспомогательного массива
+    public static int[] offsetArray2(int[] array, int n) {
+        if (array.length % n == 0) {
+            return array;
+        }
+        int oldIndex = 0;
+        int temp1 = array[oldIndex];
+        int temp2 = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (i == array.length / 2) {
+                oldIndex++;
+                temp1 = array[oldIndex];
+            }
+            int newIndex = (oldIndex + n) % array.length;
+            if (newIndex < 0) {
+                newIndex += array.length;
+            }
+            temp2 = array[newIndex];
+            array[newIndex] = temp1;
+            oldIndex = newIndex;
+            temp1 = temp2;
+        }
+        return array;
+    }
+
     public static int[] getRandomIntArray(int size) {
         int[] array = new int[size];
         for (int i = 0; i < array.length; i++) {
@@ -144,10 +186,13 @@ public class Homework2 {
         return array;
     }
 
+/*
     public static int[] getArrayFromConsole(int size) {
+        Scanner scanner = new Scanner(System.in);
         int[] array = new int[size];
         return array;
     }
+*/
 
     public static void printArray(int[] array) {
         for (int n : array) {
