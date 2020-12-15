@@ -13,17 +13,26 @@ public class Homework1 {
         System.out.println(doSecondTask(a, c));
         System.out.println(doSecondTask(b, d));
 
-        doThirdTask(5);
-        doThirdTask(0);
-        doThirdTask(-5);
+        int[] numbers = {5, 0, -4};
+        for (int n: numbers) {
+            System.out.println("Число " + n + ((isPositive(n))? " положительное" : " отрицательное"));
+        }
+//        isPositive(5);
+//        isPositive(0);
+//        isPositive(-5);
 
-        doFourthTask("студент");
+        System.out.println(greeting("студент"));
 
-        doFifthTask(2020);
-        doFifthTask(100);
-        doFifthTask(48);
-        doFifthTask(400);
-        doFifthTask(500);
+//        isLeapYear(2020);
+//        isLeapYear(100);
+//        isLeapYear(48);
+//        isLeapYear(400);
+//        isLeapYear(500);
+
+        int[] years = {2020, 2021, 100, 48, 400, 500};
+        for (int year: years){
+            System.out.println("Год " + year + (isLeapYear(year) ? " вискокосный" : " не високосный"));
+        }
     }
 
     public static double doFirstTask(int a, int b, int c, int d){
@@ -35,19 +44,15 @@ public class Homework1 {
         return c >= 10 && c <=20;
     }
 
-    public static void doThirdTask(int a){
-        if (a >= 0){
-            System.out.println("Число " + a + " положительное");
-        } else {
-            System.out.println("Число " + a + " отрицательное");
-        }
+    public static boolean isPositive(int a){
+        return a >= 0;
     }
 
-    public static void doFourthTask(String name){
-        System.out.println("Привет, " + name + "!");
+    public static String greeting(String name){
+        return "Привет, " + name + "!";
     }
 
-    public static void doFifthTask(int year){
+    public static boolean isLeapYear(int year){
         /*if (year % 4 != 0){
             System.out.println("Год " + year + " не является високосным");
         } else if (year % 400 == 0){
@@ -58,10 +63,11 @@ public class Homework1 {
             System.out.println("Год " + year + " является високосным");
         }*/
 
-        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
-            System.out.println("Год " + year + " является високосным");
-        } else {
-            System.out.println("Год " + year + " не является високосным");
-        }
+//        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+//            System.out.println("Год " + year + " является високосным");
+//        } else {
+//            System.out.println("Год " + year + " не является високосным");
+//        }
+        return year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
     }
 }
