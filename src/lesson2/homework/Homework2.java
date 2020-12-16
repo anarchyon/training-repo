@@ -49,8 +49,9 @@ public class Homework2 {
 
         //7*** Написать метод, которому на вход подаётся одномерный массив и число n (может быть положительным, или отрицательным),
         //  при этом метод должен циклически сместить все элементы массива на n позиций.
-        int[] array7 = getRandomIntArray(10);
-        int offsetSize = -10;
+        int[] array7 = getRandomIntArray(8);
+        //int array7 = {1,2,3,4,5,6,7,8,9,10};
+        int offsetSize = 2;
         printArray(array7);
         printArray(offsetArray(array7, offsetSize));
 
@@ -139,7 +140,7 @@ public class Homework2 {
 
     //метод смещает все элементы массива на n позиций со вспомогательным массивом
     public static int[] offsetArray(int[] array, int n) {
-        if (array.length % n == 0) {
+        if (n % array.length == 0) {
             return array;
         }
         int[] resultArray = new int[array.length];
@@ -155,21 +156,26 @@ public class Homework2 {
 
     //метод смещает все элементы массива на n позиций без вспомогательного массива
     public static int[] offsetArray2(int[] array, int n) {
-        if (array.length % n == 0) {
+        if (n % array.length == 0) {
             return array;
         }
         int oldIndex = 0;
         int temp1 = array[oldIndex];
         int temp2 = 0;
         for (int i = 0; i < array.length; i++) {
-            if (i == array.length / 2) {
+            //если размер массива и величина смещения чётные числа, то вручную сдвигаем индекс
+            //после просмотра половины массива, иначе будем двигаться по одним и тем же индексам
+            if (array.length % 2 == 0 && n % 2 == 0 && i == array.length / 2) {
                 oldIndex++;
                 temp1 = array[oldIndex];
             }
+            //сам алгоритм нахождения старых/новых индексов такой же, как со вспомогательным массивом
             int newIndex = (oldIndex + n) % array.length;
             if (newIndex < 0) {
                 newIndex += array.length;
             }
+            //когда внесли элемент массива по новому индексу, этот новый индекс становится старым и ищем
+            //относительно него, чтобы найти место для элемента, лежащего в переменной temp2
             temp2 = array[newIndex];
             array[newIndex] = temp1;
             oldIndex = newIndex;
