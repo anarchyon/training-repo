@@ -10,18 +10,21 @@ public class Homework2 {
         //  Написать метод, заменяющий в  принятом массиве 0 на 1, 1 на 0;
         int[] array1 = {1, 1, 0, 0, 1, 0, 1, 1, 0, 0};
         printArray(array1);
-        printArray(getInverseArray(array1));
+        getInverseArray(array1);
+        printArray(array1);
 
         //2 Задать пустой целочисленный массив размером 8.
         //  Написать метод, который c помощью цикла заполнит его значениями 1 4 7 10 13 16 19 22;
         int[] array2 = new int[8];
-        printArray(fillArray(array2));
+        fillArray(array2);
+        printArray(array2);
 
         //3 Задать массив [ 1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1 ],
         //  написать метод, принимающий на вход массив и умножающий числа меньше 6 на 2;
         int[] array3 = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
         printArray(array3);
-        printArray(modifyArray(array3));
+        modifyArray(array3);
+        printArray(array3);
 
         //4 Задать одномерный массив. Написать методы поиска в нём минимального и максимального элемента;
         int[] array4 = getRandomIntArray(10);
@@ -33,10 +36,10 @@ public class Homework2 {
         //   заполнить его диагональные элементы единицами, используя цикл(ы);
         int size = 7;
         int[][] array5 = new int[size][size];
-        int[][] resultArray = fillArraysDiagonal(array5);
-        for (int i = 0; i < resultArray.length; i++) {
-            for (int j = 0; j < resultArray[i].length; j++) {
-                System.out.print(resultArray[i][j] + "\t");
+        fillArraysDiagonal(array5);
+        for (int i = 0; i < array5.length; i++) {
+            for (int j = 0; j < array5[i].length; j++) {
+                System.out.print(array5[i][j] + "\t");
             }
             System.out.println();
         }
@@ -60,30 +63,27 @@ public class Homework2 {
     }
 
     //метод, заменяющий в  принятом массиве 0 на 1, 1 на 0
-    public static int[] getInverseArray(int[] array) {
+    public static void getInverseArray(int[] array) {
         for (int i = 0; i < array.length; i++) {
             array[i] = array[i] == 0 ? 1 : 0;
         }
-        return array;
     }
 
     //метод, который c помощью цикла заполнит его значениями 1 4 7 10 13 16 19 22
-    public static int[] fillArray(int[] array) {
+    public static void fillArray(int[] array) {
         int member = 1;
         int step = 3;
         for (int i = 0; i < array.length; i++) {
             array[i] = member;
             member += step;
         }
-        return array;
     }
 
     //метод, принимающий на вход массив и умножающий числа меньше 6 на 2
-    public static int[] modifyArray(int[] array) {
+    public static void modifyArray(int[] array) {
         for (int i = 0; i < array.length; i++) {
             array[i] = array[i] < 6 ? array[i] * 2 : array[i];
         }
-        return array;
     }
 
     //метод поиска в массиве минимального элемента
@@ -109,33 +109,28 @@ public class Homework2 {
     }
 
     //метод для заполнения диагоналей масива
-    public static int[][] fillArraysDiagonal(int[][] array) {
+    public static void fillArraysDiagonal(int[][] array) {
         int lastIndex = array.length - 1;
         for (int i = 0; i < array.length; i++) {
             array[i][lastIndex - i] = 1;
             array[i][i] = 1;
         }
-        return array;
     }
 
     //метод проверяющий баланс для массива
     public static boolean checkBalance(int[] array) {
-        boolean isBalance = false;
-        for (int i = 1; i < array.length - 1; i++) {
-            int sum1 = 0;
+        int sum1 = 0;
+        for (int i = 0; i < array.length - 1; i++) {
             int sum2 = 0;
-            for (int j = 0; j < i; j++) {
-                sum1 += array[j];
-            }
-            for (int j = i; j < array.length; j++) {
+            sum1 += array[i];
+            for (int j = i + 1; j < array.length; j++) {
                 sum2 += array[j];
             }
             if (sum1 == sum2) {
-                isBalance = true;
-                break;
+                return true;
             }
         }
-        return isBalance;
+        return false;
     }
 
     //метод смещает все элементы массива на n позиций со вспомогательным массивом
