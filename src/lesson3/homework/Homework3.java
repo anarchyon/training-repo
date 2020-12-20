@@ -1,26 +1,34 @@
 package lesson3.homework;
 
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Homework3 {
 
-    public static char[][] map;
-    public static final char HUMAN_TURN = 'X';
-    public static final char AI_TURN = 'O';
-    public static final char EMPTY_CELL = '_';
-    public static final int fieldSizeX = 3;
-    public static final int fieldSizeY = 3;
+    public static final char HUMAN_DOT = 'X';
+    public static final char AI_DOT = 'O';
+    public static final char EMPTY_DOT = '_';
     public static final Scanner SCANNER = new Scanner(System.in);
     public static final Random RANDOM = new Random();
+
+    public static char[][] map;
+    public static int fieldSizeX;
+    public static int fieldSizeY;
+    public static int winSeries;
+
+    public static void gameSettings() {
+        fieldSizeX = 3;
+        fieldSizeY = 3;
+        winSeries = 3;
+    }
 
     public static void initGame() {
         map = new char[fieldSizeY][fieldSizeX];
         for (int y = 0; y < fieldSizeY; y++) {
             for (int x = 0; x < fieldSizeX; x++) {
-                map[y][x] = EMPTY_CELL;
+                map[y][x] = EMPTY_DOT;
             }
+            System.out.println();
         }
     }
 
@@ -40,7 +48,7 @@ public class Homework3 {
             x = SCANNER.nextInt() - 1;
             y = SCANNER.nextInt() - 1;
         } while (isOutOfBounds(x, y) || isNotEmptyCell(x, y));
-        map[y][x] = HUMAN_TURN;
+        map[y][x] = HUMAN_DOT;
     }
 
     public static void aiTurn() {
@@ -50,7 +58,7 @@ public class Homework3 {
             x = RANDOM.nextInt(3);
             y = RANDOM.nextInt(3);
         } while (isOutOfBounds(x, y) || isNotEmptyCell(x, y));
-        map[y][x] = AI_TURN;
+        map[y][x] = AI_DOT;
     }
 
     public static boolean isOutOfBounds(int x, int y) {
@@ -58,19 +66,38 @@ public class Homework3 {
     }
 
     public static boolean isNotEmptyCell(int x, int y) {
-        return map[y][x] != EMPTY_CELL;
+        return map[y][x] != EMPTY_DOT;
     }
 
     public static boolean isDraw(){
         for (int y = 0; y < fieldSizeY; y++) {
             for (int x = 0; x < fieldSizeX; x++) {
-                if (map[y][x] == EMPTY_CELL) return false;
+                if (map[y][x] == EMPTY_DOT) return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isVictory(char playerChar) {
+        //длину выигрышного ряда соотносим с длиной вертикали и диагонали, т.е. длина горизонтали.вертикали
+        //минус длина выигрышного ряда - максимальныц номер ячейки, с которой стоит искать
+//        int stopCellX, stopCellY;
+//        stopCellX = fieldSizeX - WIN_SERIES;
+//        stopCellY = (fieldSizeY == fieldSizeX) ? stopCellX : fieldSizeY - WIN_SERIES;
+        for (int y = 0; y < fieldSizeY; y++) {
+            for (int x = 0; x < fieldSizeX; x++) {
+                if (map[y][x] != playerChar) continue;
+                boolean h = true, v = true, d = true, nd = true;
+                for (int i = 0; i < winSeries; i++) {
+                    //if (h && )
+                }
             }
         }
         return true;
     }
 
     public static void main(String[] args) {
+        gameSettings();
         initGame();
         printField();
         while (true) {
