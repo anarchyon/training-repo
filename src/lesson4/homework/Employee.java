@@ -45,7 +45,19 @@ public class Employee {
         this.salary = salary;
     }
 
+    public void setSalary(int increaseRate) {
+        salary += increaseRate;
+    }
+
     public int getId() {
         return id;
+    }
+
+    public String getShortInfo(){
+        return name + ", " + position;
+    }
+
+    public String getFullInfo() {
+        return name + ", должность: " + position + ", тел.: " + phoneNumber + ", оклад: " + salary + ", возраст: " + age;
     }
 }

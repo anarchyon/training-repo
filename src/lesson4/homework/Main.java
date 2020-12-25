@@ -10,39 +10,30 @@ public class Main {
         employees[3] = new Employee("Федоров Федор Федорович", "Инженер", "+7(999)-123-23-26", 65000, 42);
         employees[4] = new Employee("Кузнецов Иван Иванович", "Ассистент", "+7(999)-123-23-27", 30000, 19);
 
-        System.out.println(employeeInfo(employees[2]));
-        System.out.println(employeeInfo(employees[4]));
+        System.out.println(employees[2].getShortInfo());
+        System.out.println(employees[4].getShortInfo());
 
         System.out.println("Сотрудники старше 40 лет:");
         for (Employee employee: employees) {
             if (employee.getAge() >= 40) {
-                System.out.println(employeeFullInfo(employee));
+                System.out.println(employee.getFullInfo());
             }
         }
 
         salaryIncrease(employees, 10000);
-        System.out.println(employeeFullInfo(employees[1]));
+        System.out.println(employees[1].getFullInfo());
 
-        System.out.println(employeeInfo(employees[3]) + ", id: " + employees[3].getId());
-        System.out.println(employeeInfo(employees[0]) + ", id: " + employees[0].getId());
+        System.out.println(employees[3].getShortInfo() + ", id: " + employees[3].getId());
+        System.out.println(employees[0].getShortInfo() + ", id: " + employees[0].getId());
 
         Employee newEmployee = new Employee("Колыванов Иван Иванович", "Руководитель", "+7(999)-123-23-29", 150000, 39);
         System.out.println(newEmployee.getId());
     }
 
-    public static String employeeInfo(Employee employee) {
-        return employee.getName() + ", " + employee.getPosition();
-    }
-
-    public static String employeeFullInfo(Employee employee) {
-        return employee.getName() + ", " + employee.getPosition() + ", телефон: " + employee.getPhoneNumber() + ", " +
-                employee.getAge() + " лет, " + employee.getSalary() + " руб.";
-    }
-
     public static void salaryIncrease(Employee[] employees, int increaseRate) {
         for (int i = 0; i < employees.length; i++) {
             if (employees[i].getAge() >= 35) {
-                employees[i].setSalary(employees[i].getSalary() + increaseRate);
+                employees[i].setSalary(increaseRate);
             }
         }
     }
