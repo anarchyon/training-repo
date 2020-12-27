@@ -5,14 +5,19 @@ package lesson5.homework;
 // плавание: кот и птица не умеет плавать, собака 10 м., лошадь 100 м.).
 
 public class Bird extends Animal{
-    public Bird() {
-        name = "птичка";
-        running = 5;
-        jumping = 0.2;
+
+    private static final String TYPE = "Птица";
+    private static final int DEFAULT_RUNNING = 5;
+    private static final double DEFAULT_JUMPING = 0.2;
+    private static final int DEFAULT_SWIMMING = 0;
+
+    public Bird(String name, boolean isStandardAnimal) {
+        super(name, isStandardAnimal, DEFAULT_RUNNING, DEFAULT_JUMPING, DEFAULT_SWIMMING);
+        type = TYPE;
     }
 
     @Override
     public void swim(int meters) {
-        System.out.println(name + " не умеет плавать");
+        System.out.println(type + " " + name + " не умеет плавать");
     }
 }

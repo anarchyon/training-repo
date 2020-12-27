@@ -5,10 +5,14 @@ package lesson5.homework;
 // плавание: кот и птица не умеет плавать, собака 10 м., лошадь 100 м.).
 
 public class Horse extends Animal{
-    public Horse() {
-        name = "лошадка";
-        running = 1500;
-        jumping = 3;
-        swimming = 100;
+
+    private static final String TYPE = "Лошадь";
+    private static final int DEFAULT_RUNNING = 1500;
+    private static final double DEFAULT_JUMPING = 3;
+    private static final int DEFAULT_SWIMMING = 100;
+
+    public Horse(String name, boolean isStandardAnimal) {
+        super(name, isStandardAnimal, DEFAULT_RUNNING, DEFAULT_JUMPING, DEFAULT_SWIMMING);
+        type = TYPE;
     }
 }
