@@ -2,6 +2,10 @@ package lesson5.homework;
 
 public class Animal {
 
+    private static final int SWIM_OK = 1;
+    private static final int SWIM_FAIL = 0;
+    protected static final int SWIM_IMPOSSIBLE = -1;
+
     private static final int RUNNING_PERCENT_OF_DIFFERENCE = 20;
     private static final double JUMPING_PERCENT_OF_DIFFERENCE = 30;
     private static final int SWIMMING_PERCENT_OF_DIFFERENCE = 50;
@@ -12,29 +16,23 @@ public class Animal {
     protected double jumping;
     protected int swimming;
 
-    protected Animal(String name, boolean isStandardAnimal, int running, double jumping, int swimming) {
+    protected Animal(String name, int running, double jumping, int swimming) {
         this.name = name;
-        if (isStandardAnimal) {
-            this.running = running;
-            this.jumping = jumping;
-            this.swimming = swimming;
-        } else {
-            this.running = (int)Math.round(getRandomValue(running, RUNNING_PERCENT_OF_DIFFERENCE));
-            this.jumping = getRandomValue(jumping, JUMPING_PERCENT_OF_DIFFERENCE);
-            this.swimming = (int)Math.round(getRandomValue(swimming, SWIMMING_PERCENT_OF_DIFFERENCE));
-        }
+        this.running = (int) Math.round(getRandomValue(running, RUNNING_PERCENT_OF_DIFFERENCE));
+        this.jumping = getRandomValue(jumping, JUMPING_PERCENT_OF_DIFFERENCE);
+        this.swimming = (int) Math.round(getRandomValue(swimming, SWIMMING_PERCENT_OF_DIFFERENCE));
     }
 
-    public void run(int meters) {
-        System.out.println(type + " " + name + ((meters <= running)?" пробежал ":" не смог пробежать ") + meters + " метров");
+    public boolean run(int meters) {
+        return meters <= running;
     }
 
-    public void jump(double meters) {
-        System.out.println(type + " " + name + ((meters <= jumping)?" перепрыгнул ":" не смог перепрыгнуть ") + meters + " метров");
+    public boolean jump(double meters) {
+        return meters <= jumping;
     }
 
-    public void swim(int meters) {
-        System.out.println(type + " " + name + ((meters <= swimming)?" проплыл ":" не смог проплыть ") + meters + " метров");
+    public int swim(int meters) {
+        return (meters <= swimming) ? SWIM_OK: SWIM_FAIL;
     }
 
     public void setName(String name) {
@@ -65,6 +63,6 @@ public class Animal {
 
     public String getAnimalInfo() {
         return type + " " + name + " может пробежать " + getRunning() + " метров, перепрыгнуть препятствие высотой " +
-                String.format("%.2f",getJumping()) + " метров и проплыть " +  getSwimming() + " метров.";
+                String.format("%.2f", getJumping()) + " метров и проплыть " + getSwimming() + " метров.";
     }
 }

@@ -11,13 +11,13 @@ public class Cat extends Animal{
     private static final double DEFAULT_JUMPING = 2;
     private static final int DEFAULT_SWIMMING = 0;
 
-    public Cat(String name, boolean isStandardAnimal) {
-        super(name, isStandardAnimal, DEFAULT_RUNNING, DEFAULT_JUMPING, DEFAULT_SWIMMING);
+    public Cat(String name) {
+        super(name, DEFAULT_RUNNING, DEFAULT_JUMPING, DEFAULT_SWIMMING);
         type = TYPE;
     }
 
     @Override
-    public void swim(int meters) {
-        System.out.println(type + " " + name + " не умеет плавать");
+    public int swim(int meters) {
+        return SWIM_IMPOSSIBLE;
     }
 }

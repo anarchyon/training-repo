@@ -11,8 +11,8 @@ public class Horse extends Animal{
     private static final double DEFAULT_JUMPING = 3;
     private static final int DEFAULT_SWIMMING = 100;
 
-    public Horse(String name, boolean isStandardAnimal) {
-        super(name, isStandardAnimal, DEFAULT_RUNNING, DEFAULT_JUMPING, DEFAULT_SWIMMING);
+    public Horse(String name) {
+        super(name, DEFAULT_RUNNING, DEFAULT_JUMPING, DEFAULT_SWIMMING);
         type = TYPE;
     }
 }

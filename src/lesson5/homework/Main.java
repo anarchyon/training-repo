@@ -14,19 +14,17 @@ package lesson5.homework;
 
 public class Main {
     public static void main(String[] args) {
-        Dog dog = new Dog("Шарик", true);
-        System.out.println(dog.getAnimalInfo());
-        Dog dog1 = new Dog("Тузик", false);
-        System.out.println(dog1.getAnimalInfo());
-        Cat cat = new Cat("Васька", true);
-        Horse horse = new Horse("Серый", true);
-        Bird bird = new Bird("Кеша", true);
-        Bird bird1 = new Bird("Гоша", false);
-        System.out.println(bird1.getAnimalInfo());
+        Dog dog = new Dog("Шарик");
+        Dog dog1 = new Dog("Тузик");
+        Cat cat = new Cat("Васька");
+        Horse horse = new Horse("Серый");
+        Bird bird = new Bird("Кеша");
+        Bird bird1 = new Bird("Гоша");
 
         Animal[] animals = {dog, dog1, cat, bird, bird1, horse};
 
         for (Animal animal : animals) {
+            System.out.println(animal.getAnimalInfo());
             animal.run(50);
             animal.jump(0.22);
             animal.swim(50);
