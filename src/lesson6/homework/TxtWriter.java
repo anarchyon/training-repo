@@ -7,7 +7,7 @@ import java.io.PrintStream;
 public class TxtWriter {
 
     private final String ERROR_OUT = "Ошибка при попытке открыть файл %s на запись";
-    private final String WRITE_OK = "Файл \'%s\' успешно записан";
+    private final String WRITE_OK = "Файл \"%s\" успешно записан";
 
     private final String filePath;
 

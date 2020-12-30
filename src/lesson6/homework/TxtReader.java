@@ -5,8 +5,8 @@ import java.nio.charset.StandardCharsets;
 
 public class TxtReader {
 
-    private final String FILE_NOT_FOUND = "Ошибка! Файл \'%s\' не найден";
-    private final String ERROR_IN = "Ошибка при попытке открыть файл \'%s\'";
+    private final String FILE_NOT_FOUND = "Ошибка! Файл \"%s\" не найден";
+    private final String ERROR_IN = "Ошибка при попытке открыть файл \"%s\"";
 
     private String error;
     private StringBuilder text;
