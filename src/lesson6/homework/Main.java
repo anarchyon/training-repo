@@ -37,7 +37,7 @@ public class Main {
 
         System.out.println("_________________");
 
-        File fileForSearching = new File("text1.txt");
+        File fileForSearching = new File("text3.txt");
         String searchString = "У";
         search(fileForSearching, searchString);
 
@@ -56,7 +56,7 @@ public class Main {
     public static void search(File fileForSearching, String searchString) {
         System.out.printf("Поиск строки \"%s\" в файле \"%s\":%n", searchString, fileForSearching);
         if (reader.readText(fileForSearching)) {
-            System.out.println(reader.findString(searchString));
+            System.out.println("Найдено: " + reader.find(searchString));
         } else {
             System.out.println(reader.getError());
         }

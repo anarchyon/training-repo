@@ -47,6 +47,7 @@ public class TxtReader {
         return error;
     }
 
+    //этот поиск оказался неполноценным
     public String findString(String searchString) {
         int pointer = 0;
         int count = 0;
@@ -65,5 +66,20 @@ public class TxtReader {
         }
         return (count == 0) ? String.format("Строка \"%s\" не найдена", searchString) :
                 String.format("Строка \"%s\" найдена, количество найденных: %s", searchString, count);
+    }
+
+    //более совершенный поиск, сам метод теперь не строит строку, т.к. это лишнее действие для него, метод ищет строку
+    //и только возвращает количество найденных вхождений
+    public int find(String searchString) {
+        char[] text = this.text.toString().toLowerCase().toCharArray();
+        char[] searchArr = searchString.toLowerCase().toCharArray();
+        int count = 0;
+        for (int i = 0; i <= text.length - searchArr.length; i++) {
+            for (int j = 0; j < searchArr.length; j++) {
+                if (text[i + j] != searchArr[j]) break;
+                if (j == searchArr.length - 1) count++;
+            }
+        }
+        return count;
     }
 }
