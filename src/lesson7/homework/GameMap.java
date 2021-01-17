@@ -12,11 +12,11 @@ public class GameMap extends JPanel {
     static final int HUM_VS_AI_MODE = 0;
     private int mode;
 
-    private final int GAME_DIFFICULT_AI_NOT_PLAYING = 0;
-    private final int GAME_DIFFICULT_AI_EASY = 1;
-    private final int GAME_DIFFICULT_AI_NORMAL = 2;
-    private final int GAME_DIFFICULT_AI_HARD = 3;
-    private int currentGameDifficult;
+    static final int GAME_DIFFICULTY_AI_NOT_PLAYING = 0;
+    static final int GAME_DIFFICULTY_AI_EASY = 1;
+    static final int GAME_DIFFICULTY_AI_NORMAL = 2;
+    static final int GAME_DIFFICULTY_AI_HARD = 3;
+    private int gameDifficulty;
 
     private final int STATE_GAME_PREPARING = -1;
     private final int STATE_GAME_PLAYING = 0;
@@ -24,6 +24,8 @@ public class GameMap extends JPanel {
     private final int STATE_WIN_HUMAN = 2;
     private final int STATE_WIN_AI = 3;
     private int currentState;
+
+    private boolean aiMadeMove;
 
     final int INDENT = 10;
 
@@ -38,13 +40,18 @@ public class GameMap extends JPanel {
     private int[][] map;
     private Random random = new Random();
 
+    private final String GAME_OVER_DRAW = "Ничья!";
+    private final String GAME_OVER_WIN_HUMAN = "Победил игрок!";
+    private final String GAME_OVER_WIN_AI = "Победил компьютер!";
+
     GameMap() {
         setBackground(Color.ORANGE);
         currentState = STATE_GAME_PREPARING;
     }
 
-    public void startNewGame(int mode, int lines, int columns, int winSeries, final int MAX_FIELD_SIZE) {
+    public void startNewGame(int mode, int gameDifficulty, int lines, int columns, int winSeries, final int MAX_FIELD_SIZE) {
         this.mode = mode;
+        this.gameDifficulty = gameDifficulty;
         this.lines = lines;
         this.columns = columns;
         this.winSeries = winSeries;
@@ -133,22 +140,48 @@ public class GameMap extends JPanel {
     }
 
     private void aiTurn() {
+        switch (gameDifficulty) {
+            case GAME_DIFFICULTY_AI_NOT_PLAYING:
+                return;
+            case GAME_DIFFICULTY_AI_EASY:
+                randomMove();
+                break;
+            case GAME_DIFFICULTY_AI_NORMAL:
+                aiMadeMove = false;
+                checkTurn(DOT_AI);
+                checkTurn(DOT_HUMAN);
+                randomMove();
+                break;
+            default:
+                throw new RuntimeException("Необработанная сложность игры");
+        }
+    }
+
+    private void checkTurn(int dot) {
+        if (aiMadeMove) return;
+        for (int line = 0; line < lines; line++) {
+            for (int column = 0; column < columns; column++) {
+                if (map[line][column] != DOT_EMPTY) continue;
+                map[line][column] = dot;
+                if (isVictory(dot)) {
+                    aiMadeMove = true;
+                    map[line][column] = DOT_AI;
+                    return;
+                }
+                map[line][column] = DOT_EMPTY;
+            }
+        }
+    }
+
+    private void randomMove() {
+        if (aiMadeMove) return;
         int x, y;
         do {
             x = random.nextInt(lines);
             y = random.nextInt(columns);
         } while (!isEmptyCell(x, y));
         map[x][y] = DOT_AI;
-        /*
-        if (isEmptyCell(aiX, aiY)) {
-            System.out.println("Что-то пошло не так!!!!!!!!");
-        } else {
-            map[aiY][aiX] = AI_DOT;
-        }
-
-         */
     }
-
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -183,6 +216,30 @@ public class GameMap extends JPanel {
                         break;
                 }
             }
+        }
+        if (currentState > STATE_GAME_PLAYING) gameOver(g);
+    }
+
+    private void gameOver(Graphics g) {
+        int messageHeight = 50;
+        int y = (getHeight() - messageHeight - 20) / 2;
+        int fontSize = 40;
+        g.setColor(Color.BLACK);
+        g.fillRect(0, y, getWidth(), messageHeight);
+        g.setFont(new Font("Arial", Font.BOLD, fontSize));
+        g.setColor(Color.ORANGE);
+        switch (currentState) {
+            case STATE_DRAW:
+                g.drawString(GAME_OVER_DRAW, INDENT, getHeight() / 2);
+                break;
+            case STATE_WIN_HUMAN:
+                g.drawString(GAME_OVER_WIN_HUMAN, INDENT, getHeight() / 2);
+                break;
+            case STATE_WIN_AI:
+                g.drawString(GAME_OVER_WIN_AI, INDENT, getHeight() / 2);
+                break;
+            default:
+                throw new RuntimeException("Необработанное завершение игры");
         }
     }
 

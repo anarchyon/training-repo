@@ -56,7 +56,7 @@ public class MainWindow extends JFrame {
         add(panelButtons, BorderLayout.SOUTH);
     }
 
-    public void startNewGame(int mode, int lines, int columns, int winSeries, final int MAX_FIELD_SIZE) {
-        gameMap.startNewGame(mode, lines, columns, winSeries, MAX_FIELD_SIZE);
+    public void startNewGame(int mode, int difficulty, int lines, int columns, int winSeries, final int MAX_FIELD_SIZE) {
+        gameMap.startNewGame(mode, difficulty, lines, columns, winSeries, MAX_FIELD_SIZE);
     }
 }
