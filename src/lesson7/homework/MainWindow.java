@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 public class MainWindow extends JFrame {
 
     private final int SIZE_X = 450;
-    private final int SIZE_Y = 600;
+    private final int SIZE_Y = 500;
     private final int POS_X = 400;
     private final int POS_Y = 200;
 
@@ -38,6 +38,7 @@ public class MainWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 settings.setVisible(true);
+                gameMap.setCurrentState(gameMap.getSTATE_GAME_PREPARING());
             }
         });
 
@@ -55,7 +56,7 @@ public class MainWindow extends JFrame {
         add(panelButtons, BorderLayout.SOUTH);
     }
 
-    public void startNewGame(int mode, int fieldSizeX, int fieldSizeY, int winSeries, final int MAX_FIELD_SIZE) {
-        gameMap.startNewGame(mode, fieldSizeX, fieldSizeY, winSeries, MAX_FIELD_SIZE);
+    public void startNewGame(int mode, int lines, int columns, int winSeries, final int MAX_FIELD_SIZE) {
+        gameMap.startNewGame(mode, lines, columns, winSeries, MAX_FIELD_SIZE);
     }
 }

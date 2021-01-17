@@ -108,7 +108,7 @@ public class Settings extends JFrame {
     }
 
     private void startTheGame() {
-        int gameMode, fieldSizeX, fieldSizeY, winSeries;
+        int gameMode, lines, columns, winSeries;
         if (rbHumVsAI.isSelected()) {
             gameMode = GameMap.HUM_VS_AI_MODE;
         } else if (rbHumVsHum.isSelected()) {
@@ -116,10 +116,10 @@ public class Settings extends JFrame {
         } else {
             throw new RuntimeException("Неизвестный режим игры!");
         }
-        fieldSizeX = sliderLines.getValue();
-        fieldSizeY = sliderColumns.getValue();
+        lines = sliderLines.getValue();
+        columns = sliderColumns.getValue();
         winSeries = sliderWin.getValue();
-        mainWindow.startNewGame(gameMode, fieldSizeX, fieldSizeY, winSeries, MAX_FIELD_SIZE);
+        mainWindow.startNewGame(gameMode, lines, columns, winSeries, MAX_FIELD_SIZE);
         setVisible(false);
     }
 
